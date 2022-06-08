@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import styles from './App.module.css';
+import AppRouter from './AppRouter';
+import Navbar from './components/Navbar';
 
 function App() {
   const [data, setData] = useState({});
@@ -15,21 +18,25 @@ function App() {
   };
 
   return (
-    <div>
-      <code className={styles.url}>src/App.js</code>
+    <BrowserRouter>
+      <Navbar />
+      <AppRouter />
+      <div>
+        <code className={styles.url}>src/App.js</code>
 
-      <div className={styles.form}>
-        <p>получить данные из формы и записать в firestore</p>
+        <div className={styles.form}>
+          <p>получить данные из формы и записать в firestore</p>
 
-        <form onSubmit={handleSubmit}>
-          <input type='text' name='name' />
-          <input type='text' name='role' />
-          <button>send</button>
-        </form>
+          <form onSubmit={handleSubmit}>
+            <input type='text' name='name' />
+            <input type='text' name='role' />
+            <button>send</button>
+          </form>
+        </div>
+
+        <pre>{JSON.stringify(data, null, 2)}</pre>
       </div>
-
-      <pre>{JSON.stringify(data, null, 2)}</pre>
-    </div>
+    </BrowserRouter>
   );
 }
 
