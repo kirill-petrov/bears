@@ -1,10 +1,10 @@
 import list_of_reports from "./components/list_of_reports"
-import login from "./components/login"
+import Login from "./components/Login"
 import report from "./components/report"
 
 export const publicRoutes = [
-    {path: '/*', element: login, exact: true},
-    {path: '/login', element: login, exact: true},
+    {path: '/*', element: Login, exact: true},
+    {path: '/login', element: Login, exact: true},
 ]
 
 export const privateRoutes = [

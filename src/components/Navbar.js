@@ -6,6 +6,7 @@ const Navbar = () => {
   const user = false;
   return (
     <AppBar position="static">
+
       <Toolbar variant={'dense'}>
         {/* не понятно почему не делает справа кнопки */}
         <Grid container justifyContent={'flex-end'}>
@@ -15,6 +16,7 @@ const Navbar = () => {
               Выйти{' '}
             </Button>
           ) : (
+
             <NavLink to={'/login'}>
               <Button color="inherit" variant={'outlined'}>
                 {' '}
