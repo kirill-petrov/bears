@@ -1,4 +1,6 @@
+import { collection, addDoc } from 'firebase/firestore';
 import React from 'react';
+import db from '../../db';
 
 export default function Create() {
   const createUser = (e) => {
@@ -10,7 +12,14 @@ export default function Create() {
       role: e.target.role.value,
     };
 
-    console.log(JSON.stringify(person, null, 2));
+    addDoc(collection(db, 'users'), person)
+      .then((doc) => {
+        console.log('Document written with ID: ', doc.id);
+        e.target.reset();
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
   };
 
   return (
