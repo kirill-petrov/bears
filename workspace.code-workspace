@@ -1,0 +1,14 @@
+{
+  "folders": [
+	{
+		"path": "."
+	},
+	{
+		"path": "../cra-boilerplate-main"
+	},
+	{
+		"path": "../modern-ui"
+	}
+],
+  "settings": {}
+}
