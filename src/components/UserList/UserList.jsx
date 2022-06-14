@@ -1,4 +1,4 @@
-import { collection, getDocs, orderBy, query } from 'firebase/firestore';
+import { collection, getDocs /* , orderBy, query */ } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import db from '../../db';
 
