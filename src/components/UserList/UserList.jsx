@@ -20,15 +20,19 @@ export default function UserList() {
 
   return (
     <>
-      <p>LIST</p>
-
       <h2>read</h2>
       {usersArr.length ? (
-        usersArr.map((user) => {
-          return <p key={user.id}>{`user: ${user.name}`}</p>;
-        })
+        <ul>
+          {usersArr.map((user) => {
+            return (
+              <li key={user.id}>
+                <code>{`name: ${user.name}, id: ${user.id}`}</code>
+              </li>
+            );
+          })}
+        </ul>
       ) : (
-        <p>user List Empty</p>
+        <code>User List Empty</code>
       )}
     </>
   );
