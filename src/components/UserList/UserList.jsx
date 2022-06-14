@@ -6,7 +6,7 @@ export default function UserList() {
   const [usersArr, setUsersArr] = useState([]);
 
   useEffect(() => {
-    console.log('useEffect');
+    console.log('useEffect'); // TODO: хули он 2 раза отрабатывает
     getDocs(collection(db, 'users'))
       .then((data) => {
         const users = data.docs.map((doc) => {
@@ -26,7 +26,7 @@ export default function UserList() {
           {usersArr.map((user) => {
             return (
               <li key={user.id}>
-                <code>{`name: ${user.name}, id: ${user.id}`}</code>
+                <code>{`name: ${user.firstName}, id: ${user.id}`}</code>
               </li>
             );
           })}
