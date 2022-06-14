@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBXEZVsoQcU5l0VIULV5O7WKJopWRPiTDQ',
@@ -15,19 +15,5 @@ const app = initializeApp(firebaseConfig);
 
 // Init Cloud Firestore and get a reference to the service
 const db = getFirestore(app);
-
-// collection ref
-const users = collection(db, 'users');
-
-// get collection data
-getDocs(users)
-  .then((data) => {
-    const arrUsers = [];
-    data.docs.forEach((doc) => {
-      arrUsers.push({ ...doc.data(), id: doc.id });
-    });
-    // console.log(arrUsers);
-  })
-  .catch((err) => console.log(err.message));
 
 export default db;
