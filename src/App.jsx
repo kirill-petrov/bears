@@ -7,8 +7,6 @@ function App() {
     <>
       <code className={styles.url}>src/App.js</code>
 
-      <UserList />
-      <Create />
       <div className={styles.container}>
         <h2>delete</h2>
         <form className="delete">
@@ -19,6 +17,9 @@ function App() {
 
         <h2>update</h2>
       </div>
+
+      <Create />
+      <UserList />
     </>
   );
 }
