@@ -1,4 +1,4 @@
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import db from '../../db';
 
@@ -7,7 +7,12 @@ export default function UserList() {
 
   useEffect(() => {
     console.log('useEffect'); // TODO: хули он 2 раза отрабатывает
-    getDocs(collection(db, 'users'))
+    const colRef = collection(db, 'users');
+    // const q = query(colRef, orderBy('createdAt', 'desc'));
+    // const q = query(colRef, orderBy('firstName'));
+
+    // getDocs(q, colRef)
+    getDocs(colRef)
       .then((data) => {
         const users = data.docs.map((doc) => {
           return { ...doc.data(), id: doc.id };
@@ -26,7 +31,7 @@ export default function UserList() {
           {usersArr.map((user) => {
             return (
               <li key={user.id}>
-                <code>{`name: ${user.firstName}, id: ${user.id}`}</code>
+                <code>{`id: ${user.id}, name: ${user.firstName}, createAt: ${user.createdAt}`}</code>
               </li>
             );
           })}
