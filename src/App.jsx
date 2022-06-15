@@ -1,19 +1,74 @@
-import React from 'react';
-import styles from './App.module.css';
-import Delete from './components/Delete/Delete';
-import { Create, UserList } from './components/index.js';
+import React, { useState } from 'react';
+import { BrowserRouter, Routes, Route, Link, Navigate } from 'react-router-dom';
+import {
+  SignIn,
+  Reports,
+  SignUp,
+  CreateReport,
+  Users,
+  NotFound,
+} from './pages';
 
 function App() {
+  const [cartIsEmpty] = useState(false);
+  const [isAuth, setIsAuth] = useState(false);
+
   return (
     <>
-      <code className={styles.url}>src/App.js</code>
+      <BrowserRouter>
+        <h1>Reports App</h1>
 
-      <div className={styles.container}>
-        <h2>update</h2>
-      </div>
-      <Create />
-      <Delete />
-      <UserList />
+        {isAuth ? (
+          <nav>
+            <Link to="/createReport">Создать раппорт</Link>
+            <Link to="/users">Пользователи</Link>
+            <Link to="/" onClick={() => setIsAuth(false)}>
+              Выход
+            </Link>
+          </nav>
+        ) : (
+          <nav>
+            <Link to="/">Авторизация</Link>
+            <Link to="/signup">Регистрация</Link>
+          </nav>
+        )}
+
+        <Routes>
+          <Route path="/" element={isAuth ? <Reports /> : <SignIn />} />
+          <Route
+            path="/signup"
+            element={
+              isAuth ? (
+                <Navigate to="/" />
+              ) : (
+                <SignUp isAuth={isAuth} setIsAuth={setIsAuth} />
+              )
+            }
+          />
+          <Route
+            path="/createReport"
+            element={isAuth ? <CreateReport /> : <Navigate to="/" />}
+          />
+          {/* <Route path="/report/:id" element={<User />} /> */}
+          <Route
+            path="/users"
+            element={isAuth ? <Users /> : <Navigate to="/" />}
+          />
+          {/* <Route path="/user/:id" element={<User />} /> */}
+          <Route path="*" element={<NotFound />} />
+
+          <Route
+            path="/checkout"
+            element={
+              cartIsEmpty ? (
+                <Navigate to="/products" />
+              ) : (
+                <p className="content">checkout</p>
+              )
+            }
+          />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }

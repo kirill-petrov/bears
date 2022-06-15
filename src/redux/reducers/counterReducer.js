@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const data = JSON.parse(localStorage.getItem('rSandbox') || '{}');
+const data = JSON.parse(localStorage.getItem('bear') || '{}');
 
 const initialState = {
   count: data.counter ? data.counter.count : 0,

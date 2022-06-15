@@ -11,8 +11,8 @@ const store = configureStore({
   reducer: rootReducer,
 });
 
-// store.subscribe(() => {
-//   localStorage.setItem('rSandbox', JSON.stringify(store.getState()));
-// });
+store.subscribe(() => {
+  localStorage.setItem('bear', JSON.stringify(store.getState()));
+});
 
 export default store;

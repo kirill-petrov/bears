@@ -25,7 +25,7 @@ export default function UserList() {
 
   return (
     <>
-      <h2>read</h2>
+      <h3>Список</h3>
       {usersArr.length ? (
         <ul>
           {usersArr.map((user) => {

@@ -26,7 +26,7 @@ export default function Create() {
 
   return (
     <>
-      <h2>create</h2>
+      <h3>Добавить пользователя</h3>
       <form onSubmit={createUser}>
         <input type="text" name="firstName" placeholder="firstName" />
         <input type="text" name="role" placeholder="role" />

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Auth() {
+export default function SignIn() {
   return (
     <div className="content">
       <h2>Авторизация</h2>

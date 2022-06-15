@@ -18,11 +18,13 @@ export default function Delete() {
 
   return (
     <>
-      <h2>delete</h2>
+      <h3>Удалить пользователя</h3>
       <form className="delete" onSubmit={handleDelete}>
         <input type="text" name="id" required placeholder="id" />
-        <button>delete doc</button>
+        <button>delete user</button>
       </form>
+      <code style={{ color: 'orange' }}>todo: </code>
+      <code>edit user !</code>
     </>
   );
 }
