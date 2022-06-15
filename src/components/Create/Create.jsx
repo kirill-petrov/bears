@@ -11,7 +11,7 @@ export default function Create() {
       firstName: e.target.firstName.value,
       secondName: '',
       phoneNumber: '',
-      role: e.target.role.value, // TODO: решить что лучше строка или ссылка на коллекцию (roleId)
+      role: 'worker', // TODO: лучше строка или ссылка на коллекцию (roleId)
     };
 
     addDoc(collection(db, 'users'), person)
