@@ -1,9 +1,9 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import counterReducer from './reducers/counterReducer';
+import userReducer from './reducers/userReducer';
 import todoReducer from './reducers/todoReducer';
 
 const rootReducer = combineReducers({
-  counter: counterReducer,
+  user: userReducer,
   todo: todoReducer,
 });
 

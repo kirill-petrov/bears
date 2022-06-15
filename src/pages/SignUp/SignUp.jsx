@@ -1,13 +1,19 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleAuth } from '../../redux/reducers/userReducer';
 
-export default function SignUp({ isAuth, setIsAuth }) {
+export default function SignUp() {
+  const { isAuth } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
   return (
     <div>
       <h2>Регистрация</h2>
-      {console.log(isAuth)}
       <p>Форма реги</p>
-      <button onClick={() => setIsAuth(true)}>
-        <code>Toggle isAuth to {`${!isAuth}`}</code>
+
+      <pre>is Auth: {`${isAuth}`}</pre>
+      <button type="button" onClick={() => dispatch(toggleAuth())}>
+        <pre>Toggle isAuth to {`${!isAuth}`}</pre>
       </button>
     </div>
   );

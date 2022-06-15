@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Routes, Route, Link, Navigate } from 'react-router-dom';
 import {
   SignIn,
@@ -8,10 +9,11 @@ import {
   Users,
   NotFound,
 } from './pages';
+import { toggleAuth } from './redux/reducers/userReducer';
 
 function App() {
-  const [cartIsEmpty] = useState(false);
-  const [isAuth, setIsAuth] = useState(false);
+  const { isAuth } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -22,7 +24,7 @@ function App() {
           <nav>
             <Link to="/createReport">Создать раппорт</Link>
             <Link to="/users">Пользователи</Link>
-            <Link to="/" onClick={() => setIsAuth(false)}>
+            <Link to="/" onClick={() => dispatch(toggleAuth())}>
               Выход
             </Link>
           </nav>
@@ -37,13 +39,7 @@ function App() {
           <Route path="/" element={isAuth ? <Reports /> : <SignIn />} />
           <Route
             path="/signup"
-            element={
-              isAuth ? (
-                <Navigate to="/" />
-              ) : (
-                <SignUp isAuth={isAuth} setIsAuth={setIsAuth} />
-              )
-            }
+            element={isAuth ? <Navigate to="/" /> : <SignUp />}
           />
           <Route
             path="/createReport"
@@ -56,17 +52,6 @@ function App() {
           />
           {/* <Route path="/user/:id" element={<User />} /> */}
           <Route path="*" element={<NotFound />} />
-
-          <Route
-            path="/checkout"
-            element={
-              cartIsEmpty ? (
-                <Navigate to="/products" />
-              ) : (
-                <p className="content">checkout</p>
-              )
-            }
-          />
         </Routes>
       </BrowserRouter>
     </>
