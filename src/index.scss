@@ -1,18 +1,19 @@
-$font-IBM: 'IBM Plex Sans', sans-serif;
+$font: "Roboto", "Helvetica", "Arial", sans-serif;
 
 * {
-  font-family: $font-IBM;
+  font-family: $font;
 }
 
 body {
   margin: 0 auto;
   max-width: 1200px;
 
-  a {
-    text-decoration: none;
-  }
-
   li {
     list-style: none;
+  }
+
+  a {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.6);
   }
 }

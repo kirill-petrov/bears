@@ -21,7 +21,6 @@ function App() {
     <div className="app">
       <div className="wrapper">
         <main>
-          <h1>Reports App</h1>
           <BrowserRouter>
             <Routes>
               <Route
