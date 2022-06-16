@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navigation } from '../../components';
-import './Reports.scss';
+import './reports.scss';
 
 export default function Reports() {
   return (

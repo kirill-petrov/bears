@@ -4,6 +4,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import PeopleAltRoundedIcon from '@mui/icons-material/PeopleAltRounded';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import { Link, useLocation } from 'react-router-dom';
 import { toggleAuth } from '../../redux/reducers/userReducer';
 import { useDispatch } from 'react-redux';
@@ -44,6 +45,20 @@ export default function Navigation() {
                       </Link>
                     </li>
                   </>
+                );
+              case '/createReport':
+                return (
+                  <li>
+                    <CloseRoundedIcon className="icon" />
+                    <Link to="/reports">Вернуться на главную </Link>
+                  </li>
+                );
+              case '/users':
+                return (
+                  <li>
+                    <CloseRoundedIcon className="icon" />
+                    <Link to="/reports">Вернуться на главную </Link>
+                  </li>
                 );
               default:
                 return (
