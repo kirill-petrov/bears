@@ -1,9 +1,10 @@
 import React from 'react';
+import './Reports.scss';
 
 export default function Home() {
   return (
     <div className="content">
-      <h1>Список всех отчётов</h1>
+      <h1 className="title">Список всех отчётов</h1>
       {/* Фичи: */}
       <p>Фильтры, поиск, добавить, создать раппорт</p>
       <p>Редактировать раппорт</p>

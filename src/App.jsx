@@ -8,7 +8,7 @@ import {
   CreateReport,
   Users,
   NotFound,
-} from './pages';
+} from './pages/index.js';
 import { toggleAuth } from './redux/reducers/userReducer';
 
 function App() {
