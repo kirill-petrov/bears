@@ -1,0 +1,28 @@
+.navbar {
+  margin: 0;
+
+  border-color: aqua;
+
+  hr {
+    height: 1px;
+    border: 0.5px solid lightgrey;
+    z-index: 10;
+  }
+
+  ul {
+    display: flex;
+    justify-content: flex-end;
+
+    background-color: rgb(230, 205, 205);
+  }
+
+  li {
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+  }
+
+  .icon {
+    margin-right: 5px;
+  }
+}

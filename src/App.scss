@@ -1,0 +1,21 @@
+.app {
+  height: 100vh;
+
+  .wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(202, 202, 202);
+  }
+
+  main {
+    flex: 1 1 auto;
+    background-color: rgb(220, 220, 220);
+
+  }
+
+  footer {
+    display: flex;
+    justify-content: center;
+  }
+}
