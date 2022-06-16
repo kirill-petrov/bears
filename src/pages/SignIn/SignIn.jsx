@@ -6,7 +6,7 @@ export default function SignIn() {
   const { isAuth } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
-  const contryCode = '+'
+  const contryCode = '+7'
   const [phoneNumber, setPhoneNumber] = useState(contryCode)
   const { setUpRecaptha } = useUserAuth();
   const navigate = useNavigate();
