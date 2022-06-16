@@ -8,6 +8,8 @@ import {
   CreateReport,
   Users,
   NotFound,
+  User,
+  Report,
 } from './pages/index.js';
 import { toggleAuth } from './redux/reducers/userReducer';
 
@@ -36,21 +38,25 @@ function App() {
         )}
 
         <Routes>
-          <Route path="/" element={isAuth ? <Reports /> : <SignIn />} />
           <Route
             path="/signup"
             element={isAuth ? <Navigate to="/" /> : <SignUp />}
           />
+          <Route path="/">
+            <Route index element={isAuth ? <Reports /> : <SignIn />} />
+            <Route path=":reportId" element={<Report />} />
+          </Route>
           <Route
             path="/createReport"
             element={isAuth ? <CreateReport /> : <Navigate to="/" />}
           />
-          {/* <Route path="/report/:id" element={<User />} /> */}
-          <Route
-            path="/users"
-            element={isAuth ? <Users /> : <Navigate to="/" />}
-          />
-          {/* <Route path="/user/:id" element={<User />} /> */}
+          <Route path="/users">
+            <Route index element={isAuth ? <Users /> : <Navigate to="/" />} />
+            <Route
+              path=":userId"
+              element={isAuth ? <User /> : <Navigate to="/" />}
+            />
+          </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
