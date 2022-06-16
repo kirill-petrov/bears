@@ -6,6 +6,11 @@ export default function SignIn() {
   const { isAuth } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
+  const contryCode = '+7'
+  const [phoneNumber, setPhoneNumber] = useState(contryCode)
+  const { setUpRecaptha } = useUserAuth();
+  const navigate = useNavigate();
+
   return (
     <div className="content">
       <h2>Авторизация</h2>
