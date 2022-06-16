@@ -1,6 +1,7 @@
-import { RecaptchaVerifier, signInWithPhoneNumber, GoogleAuthProvider } from 'firebase/auth';
-import { createContext } from 'react';
-import { auth } from '../firebase';
+import { RecaptchaVerifier, signInWithPhoneNumber, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { createContext, useContext } from 'react';
+import { auth } from '../db.js';
+
 
 export const userAuthContext = createContext()
 
