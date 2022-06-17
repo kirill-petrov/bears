@@ -32,7 +32,7 @@ export default function Navigation() {
                   <>
                     <li>
                       <AddRoundedIcon className="icon" />
-                      <Link to="/createReport">Создать раппорт</Link>
+                      <Link to="/createReport">Создать рапорт</Link>
                     </li>
                     <li>
                       <PeopleAltRoundedIcon className="icon" />

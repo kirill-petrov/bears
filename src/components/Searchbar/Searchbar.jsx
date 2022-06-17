@@ -10,7 +10,7 @@ import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import ScheduleRoundedIcon from '@mui/icons-material/ScheduleRounded';
-
+import { ListOfReports } from '../index.js';
 export default function Searchbar() {
   return (
     <Paper sx={{ maxWidth: 936, margin: 'auto', overflow: 'hidden' }}>
@@ -53,8 +53,9 @@ export default function Searchbar() {
           </Grid>
         </Toolbar>
       </AppBar>
+      <ListOfReports />
       <Typography sx={{ my: 5, mx: 2 }} color="text.secondary" align="center">
-        Нет раппортов по этому запросу
+        Нет рапортов по этому запросу
       </Typography>
     </Paper>
   );

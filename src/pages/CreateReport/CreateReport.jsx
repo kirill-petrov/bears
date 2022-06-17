@@ -3,9 +3,9 @@ import { Navigation } from '../../components';
 
 export default function CreateReport() {
   return (
-    <div className="content">
+    <div className="create-report">
       <Navigation />
-      <h2>CreateReport</h2>
+      <div className="container"></div>
     </div>
   );
 }
