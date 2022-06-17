@@ -1,5 +1,22 @@
-.table {
-  border-color: gray;
-  display: flex;
-  justify-content: center;
+.datatable {
+  .table {
+    border-color: gray;
+    display: flex;
+    justify-content: center;
+  }
+
+  .cellWithStatus {
+    padding: 5px;
+    border-radius: 5px;
+
+    &.active {
+      background-color: rgba(0, 128, 0, 0.05);
+      color: green;
+    }
+
+    &.passive {
+      background-color: rgba(255, 0, 0, 0.05);
+      color: crimson;
+    }
+  }
 }

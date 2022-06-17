@@ -1,7 +1,7 @@
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
+// import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
@@ -10,7 +10,7 @@ import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import ScheduleRoundedIcon from '@mui/icons-material/ScheduleRounded';
-import { ListOfReports } from '../index.js';
+// import { ListOfReports } from '../index.js';
 export default function Searchbar() {
   return (
     <Paper sx={{ maxWidth: 936, margin: 'auto', overflow: 'hidden' }}>
@@ -53,10 +53,10 @@ export default function Searchbar() {
           </Grid>
         </Toolbar>
       </AppBar>
-      <ListOfReports />
-      <Typography sx={{ my: 5, mx: 2 }} color="text.secondary" align="center">
+      {/* <ListOfReports /> */}
+      {/* <Typography sx={{ my: 5, mx: 2 }} color="text.secondary" align="center">
         Нет рапортов по этому запросу
-      </Typography>
+      </Typography> */}
     </Paper>
   );
 }
