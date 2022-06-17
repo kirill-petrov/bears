@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useUserAuth } from '../../context/сontext.js';
 import { toggleAuth } from '../../redux/reducers/userReducer';
 
-import Box from '@mui/material/Box';
+
 import { Alert, TextField, Button } from '@mui/material';
 import GoogleButton from 'react-google-button';
 
@@ -14,19 +14,16 @@ export default function SignIn() {
 
   const contryCode = '+7'
   const [phoneNumber, setPhoneNumber] = useState(contryCode)
-  console.log(typeof phoneNumber);
-  console.log(typeof setPhoneNumber);
   const [error, setError] = useState("")
   const [flag, setFlag] = useState(false)
   const [otp, setOtp] = useState("")
   const [result, setResult] = useState("")
   const { setUpRecaptha } = useUserAuth() //СМС 
-  const {  googleSignIn } = useUserAuth() //ГУГЛ
+  const { googleSignIn } = useUserAuth() //ГУГЛ
   const navigate = useNavigate();
 
   const getOtp = async (e) => {
     e.preventDefault()
-    console.log(phoneNumber)
     setError("");
     if (phoneNumber === "" || phoneNumber === undefined || phoneNumber.length >= 13 || phoneNumber.length <= 11)
       return setError("Пожалуйста, введите действительный номер телефона")
@@ -40,15 +37,15 @@ export default function SignIn() {
   };
 
   const verifyOtp = async (e) => {
-    e.preventDefault();
-    setError("");
+    e.preventDefault()
+    setError("")
     if (otp === "" || otp === null)
       return setError('Веведен неверный пароль')
     try {
-      await result.confirm(otp);
-      navigate("/createReport");
+      await result.confirm(otp)
+      navigate("/createReport")
     } catch (err) {
-      setError(err.message);
+      setError(err.message)
     }
   };
 
@@ -69,44 +66,38 @@ export default function SignIn() {
       <p>Форма входа</p>
       <div className=" box">
 
-        {error && <Alert variant="error">{error}</Alert>}
-        <form  id="Login" onSubmit={getOtp} style={{ display: !flag ? "block" : "none" }}>
-          <Box component="form"
-            sx={{
-              '& > :not(style)': { m: 2, width: '35ch' },
-            }}
-            noValidate
-            autoComplete="off"
-          >
-            <TextField
-              // type="text"
-              // value={phoneNumber}
-              // onChange={setPhoneNumber}
-              id="outlined-basic" label="Введите номер телефона" variant="outlined"
-            />
-            <div id="recaptcha-container"></div>
-          </Box>
+        {error && <Alert severity="error">{error}</Alert>}
+        <form onSubmit={getOtp} style={{ display: !flag ? "block" : "none" }}>
 
-          <Button variant="contained">
+          <TextField
+            value={phoneNumber}
+            onChange={ (e) => setPhoneNumber(e.target.value)}
+            id="outlined-basic" label="Введите номер телефона" variant="outlined" name="phoneNumber"
+          />
+          &nbsp;
+          <div id="recaptcha-container"></div>
+          &nbsp;
+          
+          <Button  type="submit" variant="contained">
             Получить пароль
           </Button>
         </form>
 
-        <form id="SMS" onSubmit={verifyOtp} style={{ display: flag ? "block" : "none" }}>
+        <form onSubmit={verifyOtp} style={{ display: flag ? "block" : "none" }}>
           <TextField
             onChange={(e) => setOtp(e.target.value)}
             id="outlined-basic" label="Введите Пароль" variant="outlined"
 
           />
-          <Button variant="contained">
+          <Button type="submit" variant="contained">
             Войти
           </Button>
         </form>
 
-        <div>
+        <div >
           <GoogleButton
             className="g-btn"
-            label = 'Войти с помощью Google'
+            label='Войти с помощью Google'
             type="dark"
             onClick={handleGoogleSignIn}
           />
