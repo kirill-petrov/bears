@@ -1,4 +1,4 @@
-export const columns = [
+export const userColumns = [
   { field: 'id', headerName: 'ID', width: 70 },
   { field: 'firstName', headerName: 'First name', width: 130 },
   { field: 'lastName', headerName: 'Last name', width: 130 },
@@ -39,7 +39,7 @@ export const columns = [
   },
 ];
 
-export const rows = [
+export const userRows = [
   { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35, status: 'active' },
   {
     id: 2,
