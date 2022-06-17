@@ -39,10 +39,11 @@ export default function SignIn() {
   const verifyOtp = async (e) => {
     e.preventDefault()
     setError("")
-    if (otp === "" || otp === null)
+    if (otp === "" || otp === null || otp.length >= 7|| otp.length<= 5)
       return setError('Веведен неверный пароль')
     try {
       await result.confirm(otp)
+      dispatch(toggleAuth())
       navigate("/createReport")
     } catch (err) {
       setError(err.message)
@@ -54,6 +55,7 @@ export default function SignIn() {
     e.preventDefault();
     try {
       await googleSignIn();
+      dispatch(toggleAuth())
       navigate("/createReport")
     } catch (error) {
       console.log(error.message)
