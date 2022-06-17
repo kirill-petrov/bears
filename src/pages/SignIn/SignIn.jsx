@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useUserAuth } from '../../context/сontext.js';
 import { toggleAuth } from '../../redux/reducers/userReducer';
+import classes from './SignIn.module.css'
 
 
 import { Alert, TextField, Button } from '@mui/material';
@@ -66,7 +67,8 @@ export default function SignIn() {
     <div className="content">
       <h2>Авторизация</h2>
       <p>Форма входа</p>
-      <div className=" box">
+
+      <div className= {classes.box}>
 
         {error && <Alert severity="error">{error}</Alert>}
         <form onSubmit={getOtp} style={{ display: !flag ? "block" : "none" }}>
@@ -76,9 +78,9 @@ export default function SignIn() {
             onChange={ (e) => setPhoneNumber(e.target.value)}
             id="outlined-basic" label="Введите номер телефона" variant="outlined" name="phoneNumber"
           />
-          &nbsp;
+          
           <div id="recaptcha-container"></div>
-          &nbsp;
+          
           
           <Button  type="submit" variant="contained">
             Получить пароль
@@ -96,7 +98,7 @@ export default function SignIn() {
           </Button>
         </form>
 
-        <div >
+        <div style={{ marginTop: 40 }} >
           <GoogleButton
             className="g-btn"
             label='Войти с помощью Google'

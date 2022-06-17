@@ -55,3 +55,7 @@ nav h1 {
   display: flex;
   gap: 20px;
 }
+
+#recaptcha-container {
+  margin: 20px;
+}

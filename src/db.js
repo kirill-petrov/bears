@@ -26,7 +26,7 @@ const app = initializeApp ({
   measurementId: "G-HMY3ZQ8S85"
 })
 
-export const auth = getAuth(app) // (под сомнением)
+export const auth = getAuth(app) 
 
 // Init Cloud Firestore and get a reference to the service
 const db = getFirestore(app);
