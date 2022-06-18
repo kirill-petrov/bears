@@ -40,10 +40,10 @@ export default function SignIn() {
   const verifyOtp = async (e) => {
     e.preventDefault()
     setError("")
-    if (otp === "" || otp === null || otp.length >= 7|| otp.length<= 5)
+    if (otp === "" || otp === null || otp.length >= 7 || otp.length <= 5)
       return setError('Веведен неверный пароль')
     try {
-      await result.confirm(otp)
+      await result.confirm(otp) // вход в систему произведен
       dispatch(toggleAuth())
       navigate("/createReport")
     } catch (err) {
@@ -68,23 +68,24 @@ export default function SignIn() {
       <h2>Авторизация</h2>
       <p>Форма входа</p>
 
-      <div className= {classes.box}>
+      <div className={classes.box}>
 
         {error && <Alert severity="error">{error}</Alert>}
         <form onSubmit={getOtp} style={{ display: !flag ? "block" : "none" }}>
 
           <TextField
             value={phoneNumber}
-            onChange={ (e) => setPhoneNumber(e.target.value)}
+            onChange={(e) => setPhoneNumber(e.target.value)}
             id="outlined-basic" label="Введите номер телефона" variant="outlined" name="phoneNumber"
           />
-          
+
           <div id="recaptcha-container"></div>
-          
-          
-          <Button  type="submit" variant="contained">
-            Получить пароль
-          </Button>
+
+          <div className={classes.btn}>
+            <Button type="submit" variant="contained">
+              Получить пароль
+            </Button>
+          </div>
         </form>
 
         <form onSubmit={verifyOtp} style={{ display: flag ? "block" : "none" }}>
@@ -93,9 +94,11 @@ export default function SignIn() {
             id="outlined-basic" label="Введите Пароль" variant="outlined"
 
           />
-          <Button type="submit" variant="contained">
-            Войти
-          </Button>
+          <div className={classes.btn}>
+            <Button type="submit" variant="contained">
+              Войти
+            </Button>
+          </div>
         </form>
 
         <div style={{ marginTop: 40 }} >
@@ -106,13 +109,13 @@ export default function SignIn() {
             onClick={handleGoogleSignIn}
           />
         </div>
-      </div>
+      </div >
 
 
       <pre>is Auth: {`${isAuth}`}</pre>
       <button type="button" onClick={() => dispatch(toggleAuth())}>
         <pre>Toggle isAuth to {`${!isAuth}`} (whith redux)</pre>
       </button>
-    </div>
+    </div >
   );
 }
