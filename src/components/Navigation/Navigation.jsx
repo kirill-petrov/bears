@@ -9,8 +9,9 @@ import { Link, useLocation } from 'react-router-dom';
 import { toggleAuth } from '../../redux/reducers/userReducer';
 import { useDispatch } from 'react-redux';
 import './navigation.scss';
+import { IconButton } from '@mui/material';
 
-export default function Navigation() {
+export default function Navigation({ userId }) {
   const dispatch = useDispatch();
   let location = useLocation();
 
@@ -56,8 +57,19 @@ export default function Navigation() {
               case '/users':
                 return (
                   <li>
-                    <CloseRoundedIcon className="icon" />
-                    <Link to="/reports">Вернуться на главную </Link>
+                    <Link to="/reports">
+                      <CloseRoundedIcon />
+                    </Link>
+                  </li>
+                );
+              case `/users/${userId}`:
+                return (
+                  <li>
+                    <Link to="/users">
+                      <IconButton>
+                        <CloseRoundedIcon />
+                      </IconButton>
+                    </Link>
                   </li>
                 );
               default:
