@@ -1,3 +1,5 @@
+@import '../../index.scss';
+
 .datatable {
   .table {
     border-color: gray;
@@ -8,16 +10,6 @@
   .cellWithStatus {
     padding: 5px;
     border-radius: 5px;
-
-    &.active {
-      background-color: rgba(0, 128, 0, 0.05);
-      color: green;
-    }
-
-    &.passive {
-      background-color: rgba(255, 0, 0, 0.05);
-      color: crimson;
-    }
   }
 
   .cellAction {
@@ -38,6 +30,19 @@
       border-radius: 5px;
       color: crimson;
       border: 1px dotted rgba(220, 20, 60, 0.6);
+      cursor: pointer;
+      // visibility: hidden;
+
+      &:hover {
+        color: blue;
+      }
+    }
+
+
+    .updateButton {
+      padding: 2px 5px;
+      border-radius: 5px;
+      border: 1px dotted rgba(71, 27, 124, 0.6);
       cursor: pointer;
     }
   }

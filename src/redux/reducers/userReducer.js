@@ -4,6 +4,7 @@ const data = JSON.parse(localStorage.getItem('bear') || '{}');
 
 const initialState = {
   isAuth: data.user ? data.user.isAuth : false,
+  isAdmin: false,
 };
 
 export const userSlice = createSlice({
