@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Navigation } from '../../components';
 import { useNavigate } from 'react-router-dom';
 import { useUserAuth } from '../../context/сontext.js';
 import { toggleAuth } from '../../redux/reducers/userReducer';
@@ -64,9 +65,12 @@ export default function SignIn() {
   };
 
   return (
-    <div className="content">
-      <h2>Авторизация</h2>
-      <p>Форма входа</p>
+    <div>
+      <div className="signin">
+        <Navigation />
+        <h2>Войти</h2>
+        <p>Форма входа</p>
+      </div>
 
       <div className={classes.box}>
 
@@ -110,12 +114,6 @@ export default function SignIn() {
           />
         </div>
       </div >
-
-
-      <pre>is Auth: {`${isAuth}`}</pre>
-      <button type="button" onClick={() => dispatch(toggleAuth())}>
-        <pre>Toggle isAuth to {`${!isAuth}`} (whith redux)</pre>
-      </button>
-    </div >
+    </div>
   );
 }

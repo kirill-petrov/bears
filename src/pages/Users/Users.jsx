@@ -1,10 +1,22 @@
 import React from 'react';
-import { Create, Delete, UserList } from '../../components';
+import Paper from '@mui/material/Paper';
+
+import {
+  Create,
+  DataTable,
+  Delete,
+  Navigation,
+  UserList,
+} from '../../components';
 
 export default function Users() {
   return (
-    <div className="content">
-      <h2>Список всех пользователей</h2>
+    <div className="users">
+      <Navigation />
+
+      <Paper sx={{ maxWidth: 936, margin: 'auto', overflow: 'hidden' }}>
+        <DataTable />
+      </Paper>
       <Create />
       <Delete />
       <UserList />
