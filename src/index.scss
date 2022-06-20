@@ -1,7 +1,10 @@
 $font: "Roboto", "Helvetica", "Arial", sans-serif;
+$color-font: rgba(0, 0, 0, 0.6);
+
 
 * {
   font-family: $font;
+  // color: $color-font
 }
 
 body {
@@ -14,6 +17,6 @@ body {
 
   a {
     text-decoration: none;
-    color: rgba(0, 0, 0, 0.6);
+    color: $color-font;
   }
 }

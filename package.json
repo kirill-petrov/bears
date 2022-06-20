@@ -8,6 +8,7 @@
     "@emotion/styled": "^11.9.3",
     "@mui/icons-material": "^5.8.4",
     "@mui/material": "^5.8.4",
+    "@mui/x-data-grid": "^5.12.2",
     "@reduxjs/toolkit": "^1.8.2",
     "firebase": "^9.8.2",
     "normalize.css": "^8.0.1",
