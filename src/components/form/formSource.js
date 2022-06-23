@@ -1,9 +1,9 @@
-const localDateTime = () => {
+function localDateTime() {
   const date = new Date();
   return new Date(
     date.getTime() - date.getTimezoneOffset() * 60000
   ).toISOString();
-};
+}
 
 export const reportInputs = [
   {
@@ -42,7 +42,7 @@ export const reportInputs = [
     label: 'Примечания',
     type: 'text',
     multiline: true,
-    rows: 2,
+    rows: 3,
   },
 
   {
@@ -50,17 +50,17 @@ export const reportInputs = [
     required: true,
     type: 'datetime-local',
     label: 'Время прибытия',
-    defaultValue: localDateTime().slice(0, 16),
+    defaultValue: localDateTime().slice(0, 11) + '00:00',
   },
   {
     name: 'departure',
     required: true,
     type: 'datetime-local',
     label: 'Время убытия',
-    defaultValue: localDateTime().slice(0, 16),
+    defaultValue: localDateTime().slice(0, 11) + '00:00',
   },
   {
-    name: 'lunch',
+    name: 'durationOfLunch',
     required: false,
     type: 'number',
     label: 'Время обеда, мин.',
