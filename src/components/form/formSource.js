@@ -5,6 +5,14 @@ function localDateTime() {
   ).toISOString();
 }
 
+export function getRequired() {
+  const requiredInputs = [];
+  reportInputs.forEach((item) => {
+    if (item.required) requiredInputs.push(item.name);
+  });
+  return requiredInputs;
+}
+
 export const reportInputs = [
   {
     name: 'customer',
@@ -65,21 +73,4 @@ export const reportInputs = [
     type: 'number',
     label: 'Время обеда, мин.',
   },
-  // {
-  //   required: true,
-  //   label: 'Подпись заказчика',
-  //   type: 'text',
-  //   defaultValue: 'Подпись заказчика',
-  // },
-  // {
-  //   required: true,
-  //   label: 'Подпись тсполнителя',
-  //   type: 'text',
-  //   defaultValue: 'Подпись тсполнителя',
-  // },
-  // {
-  //   required: false,
-  //   label: 'Итого отработано',
-  //   type: 'text',
-  // },
 ];

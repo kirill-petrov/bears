@@ -1,12 +1,14 @@
 .form {
-  // display: flex;
-  // justify-content: center;
 
   form {
     margin: 0 15px 60px 15px;
     display: flex;
     flex-flow: column;
     gap: 20px;
+
+    .alert {
+      color: #D22E30;
+    }
   }
 
   .form-btn {

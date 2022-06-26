@@ -9,5 +9,3 @@ export default function getTotalTime(arrivalMs, departureMs, minutes) {
 
   return hours.concat(':').concat(mins);
 }
-
-// console.log(getTotalTime(1655931600000, 1655940600000));

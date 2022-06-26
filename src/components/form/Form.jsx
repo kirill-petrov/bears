@@ -1,17 +1,15 @@
-import { KeyboardArrowRightOutlined } from '@mui/icons-material';
 import { Button, TextField } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { reportInputs } from './formSource.js';
+import { getRequired, reportInputs } from './formSource.js';
 import './form.scss';
 import getTotalTime from '../../utils/getTotalTime.js';
 
 export default function Form() {
-  const [data, setData] = useState('x');
-
   //todo:  при обновлении страницы заполненные данные сохраняются
   // ?? управляемый инпут
   const [values, setValues] = useState({
     customer: '',
+    customerError: false,
     executor: '',
     object: '',
     machine: '',
@@ -32,27 +30,39 @@ export default function Form() {
       '[name="durationOfLunch"]'
     ).value;
     const totalTime = getTotalTime(arrival, departure, durationOfLunch);
-    setValues({ ...values, totalTime });
+    setValues((prev) => ({ ...prev, totalTime }));
   }, [values.arrival, values.departure, values.durationOfLunch]);
 
-  //todo:  рассчитать итого отработано
-  // const getTotalTime = () => {
-  //   const a = document.querySelector('[name="lunch"]');
-  //   console.log('getTotalTime', a?.value);
-  //   return a || 0;
-  // };
+  //todo:  валидация datetime-local
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('handleSubmit');
 
-    console.log('handleSubmit end');
+    const requiredInputs = getRequired();
+
+    for (const key in values) {
+      if (values[key] === '' && requiredInputs.includes(key)) {
+        setValues((prev) => ({ ...prev, [`${key}Error`]: true }));
+      }
+    }
+    //todo: добавить якорь navigate to …#alert
+  };
+
+  const handleOnBlur = (e) => {
+    const inputName = e.target.name;
+    if (values[inputName] === '' && getRequired().includes(inputName)) {
+      setValues((prev) => ({ ...prev, [`${inputName}Error`]: true }));
+    }
+
+    if (values[inputName] !== '' && getRequired().includes(inputName)) {
+      setValues((prev) => ({ ...prev, [`${inputName}Error`]: false }));
+    }
   };
 
   return (
     <div className="form">
       <form noValidate autoComplete="off" onSubmit={handleSubmit}>
-        <p>
+        <p className="alert">
           <sup>*</sup>&nbsp;Поля со звёздочкой, являются обязательными
         </p>
         <pre style={{ fontFamily: 'monospace' }}>
@@ -60,28 +70,26 @@ export default function Form() {
         </pre>
         {reportInputs.map((input, key) => (
           <TextField
-            key={key}
+            className="textField"
+            key={`tf${key}`}
             {...input}
-            // name={input.name}
-            // type={input.type}
-            // required={input.required}
-            // label={input.label}
-            // defaultValue={input.defaultValue ? input.defaultValue : null}
-            // multiline={input.multiline ? true : false}
-            // rows={input.rows ? input.rows : null}
-            // value={'asd'}
             variant="outlined"
             fullWidth
             onChange={(e) =>
-              setValues({ ...values, [e.target.name]: e.target.value })
+              setValues((prev) => ({
+                ...prev,
+                [e.target.name]: e.target.value,
+              }))
             }
+            onBlur={handleOnBlur}
+            error={values[`${input.name}Error`]}
           />
         ))}
         <TextField
+          className="textField"
           name="totalTime"
           label="Итого отработано (ЧЧ:ММ)"
           helperText="Рассчитывается автоматически"
-          defoultValue={values.totalTime}
           value={values.totalTime}
           InputProps={{
             readOnly: true,
@@ -90,19 +98,11 @@ export default function Form() {
           fullWidth
         />
         <div className="form-btn">
-          <Button
-            onClick={console.log('click')}
-            type="submit"
-            variant="outlined"
-            endIcon={<KeyboardArrowRightOutlined />}
-          >
+          <Button type="submit" variant="outlined">
             Отправить
           </Button>
         </div>
       </form>
-      <pre style={{ marginLeft: '15px', fontFamily: 'monospace' }}>
-        {JSON.stringify(data, null, 2)}
-      </pre>
     </div>
   );
 }
