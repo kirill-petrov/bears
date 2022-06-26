@@ -1,0 +1,20 @@
+.form {
+
+  form {
+    margin: 0 15px 60px 15px;
+    display: flex;
+    flex-flow: column;
+    gap: 20px;
+
+    .alert {
+      color: #D22E30;
+    }
+  }
+
+  .form-btn {
+    width: 100%;
+    margin-top: 30px;
+    display: flex;
+    justify-content: flex-end;
+  }
+}
