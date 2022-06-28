@@ -5,7 +5,6 @@ import './form.scss';
 
 export default function Form() {
   //todo:  при обновлении страницы заполненные данные сохраняются
-  //todo:  валидация datetime-local
 
   const [values, setValues] = useState({
     customer: '',
@@ -31,7 +30,6 @@ export default function Form() {
     const timeData = getTotalTime(arrival, departure, lanchDurationInMinutes);
 
     if (timeData.error) {
-      console.log('if (timeData.error) ');
       setValues((prev) => ({
         ...prev,
         totalTimeError: true,
@@ -55,6 +53,7 @@ export default function Form() {
         setValues((prev) => ({ ...prev, [`${key}Error`]: true }));
       }
     }
+
     //todo: добавить якорь navigate to …#alert
   };
 

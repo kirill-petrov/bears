@@ -1,6 +1,6 @@
 import { deleteDoc, doc } from 'firebase/firestore';
 import React from 'react';
-import db from '../../db';
+import { db } from '../../firebase.js';
 
 export default function Delete() {
   const handleDelete = (e) => {

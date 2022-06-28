@@ -14,9 +14,17 @@ export const userSlice = createSlice({
     toggleAuth: (state) => {
       state.isAuth = !state.isAuth;
     },
+    authGoogleProvider: (state, action) => {
+      state.isAuth = true;
+      state.uid = action.payload;
+    },
+    logout: (state) => {
+      state.isAuth = false;
+      state.uid = null;
+    },
   },
 });
 
-export const { toggleAuth } = userSlice.actions;
+export const { toggleAuth, authGoogleProvider, logout } = userSlice.actions;
 
 export default userSlice.reducer;

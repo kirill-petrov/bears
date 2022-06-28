@@ -1,12 +1,12 @@
 import { collection, getDocs /* , orderBy, query */ } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
-import db from '../../db';
+import { db } from '../../firebase.js';
 
 export default function UserList() {
   const [usersArr, setUsersArr] = useState([]);
 
   useEffect(() => {
-    console.log('useEffect'); // TODO: хули он 2 раза отрабатывает
+    console.log('useEffect');
     const colRef = collection(db, 'users');
     // const q = query(colRef, orderBy('createdAt', 'desc'));
     // const q = query(colRef, orderBy('firstName'));
