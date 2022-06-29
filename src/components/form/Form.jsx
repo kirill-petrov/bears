@@ -55,6 +55,7 @@ export default function Form() {
     }
 
     //todo: добавить якорь navigate to …#alert
+    //todo: форма не должна улетать если есть …Error
   };
 
   const handleOnBlur = (e) => {
