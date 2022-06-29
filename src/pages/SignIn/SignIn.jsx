@@ -5,6 +5,7 @@ import { Navigation } from '../../components';
 import { auth } from '../../firebase.js';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import './signin.scss';
+import GoogleIcon from '@mui/icons-material/Google';
 
 export default function SignIn() {
   // const { isAuth } = useSelector((state) => state.user);
@@ -38,16 +39,11 @@ export default function SignIn() {
       <Navigation />
 
       <div className="container">
-        <h2>Войти</h2>
+        <h2>Авторизация</h2>
 
         <button type="button" onClick={signInWithGoogle}>
-          Continue with Google
-        </button>
-        <button
-          type="button"
-          onClick={() => dispatch(authGoogleProvider('km'))}
-        >
-          authGoogleProvider
+          <GoogleIcon />
+          <div>Continue with Google</div>
         </button>
       </div>
     </div>
