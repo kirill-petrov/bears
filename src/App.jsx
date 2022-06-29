@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { ToggleIsAuth } from './components/index.js';
-import { UserAuthContextProvider } from './context/сontext';
+import { UserAuthContextProvider } from './context/сontext.js';
 import {
   SignIn,
   Reports,
