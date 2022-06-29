@@ -1,12 +1,11 @@
 import { Button, TextField } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { getRequired, reportInputs } from './formSource.js';
+import { getRequired, reportInputs, getTotalTime } from './formSource.js';
 import './form.scss';
-import getTotalTime from '../../utils/getTotalTime.js';
 
 export default function Form() {
   //todo:  при обновлении страницы заполненные данные сохраняются
-  // ?? управляемый инпут
+
   const [values, setValues] = useState({
     customer: '',
     customerError: false,
@@ -18,22 +17,31 @@ export default function Form() {
     arrival: '',
     departure: '',
     durationOfLunch: '',
-    totalTime: '',
+    totalTime: '00:00',
   });
 
   useEffect(() => {
-    const arrival = new Date(document.querySelector('[name="arrival"]').value);
-    const departure = new Date(
-      document.querySelector('[name="departure"]').value
-    );
-    const durationOfLunch = document.querySelector(
+    const arrival = document.querySelector('[name="arrival"]').value;
+    const departure = document.querySelector('[name="departure"]').value;
+    const lanchDurationInMinutes = document.querySelector(
       '[name="durationOfLunch"]'
     ).value;
-    const totalTime = getTotalTime(arrival, departure, durationOfLunch);
-    setValues((prev) => ({ ...prev, totalTime }));
-  }, [values.arrival, values.departure, values.durationOfLunch]);
 
-  //todo:  валидация datetime-local
+    const timeData = getTotalTime(arrival, departure, lanchDurationInMinutes);
+
+    if (timeData.error) {
+      setValues((prev) => ({
+        ...prev,
+        totalTimeError: true,
+      }));
+    } else {
+      setValues((prev) => ({
+        ...prev,
+        totalTimeError: false,
+        totalTime: timeData.totalTime,
+      }));
+    }
+  }, [values.arrival, values.departure, values.durationOfLunch]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -45,6 +53,7 @@ export default function Form() {
         setValues((prev) => ({ ...prev, [`${key}Error`]: true }));
       }
     }
+
     //todo: добавить якорь navigate to …#alert
   };
 
@@ -89,8 +98,13 @@ export default function Form() {
           className="textField"
           name="totalTime"
           label="Итого отработано (ЧЧ:ММ)"
-          helperText="Рассчитывается автоматически"
           value={values.totalTime}
+          error={values.totalTimeError}
+          helperText={
+            values.totalTimeError
+              ? 'Проверьте параметры времени'
+              : 'Рассчитывается автоматически'
+          }
           InputProps={{
             readOnly: true,
           }}

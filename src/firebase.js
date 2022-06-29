@@ -1,8 +1,9 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyBXEZVsoQcU5l0VIULV5O7WKJopWRPiTDQ',
+  apiKey: process.env.REACT_APP_FIREBASE_KEY,
   authDomain: 'bears-somehow-74f39.firebaseapp.com',
   projectId: 'bears-somehow-74f39',
   storageBucket: 'bears-somehow-74f39.appspot.com',
@@ -10,10 +11,9 @@ const firebaseConfig = {
   appId: '1:165393945406:web:27a9f1d27965a521e6926f',
 };
 
-// Init Firebase app
 const app = initializeApp(firebaseConfig);
 
 // Init Cloud Firestore and get a reference to the service
-const db = getFirestore(app);
+export const db = getFirestore(app);
 
-export default db;
+export const auth = getAuth();

@@ -13,6 +13,26 @@ export function getRequired() {
   return requiredInputs;
 }
 
+export function getTotalTime(arrival, departure, lanchDurationInMinutes) {
+  if (departure < arrival) return { error: true };
+
+  const arrivalMs = Date.parse(arrival);
+  const departureMs = Date.parse(departure);
+  const lanchMs = lanchDurationInMinutes * 60000;
+
+  if (lanchMs > departureMs - arrivalMs) return { error: true };
+
+  const durationMs = departureMs - arrivalMs - lanchMs;
+
+  let hours = parseInt(durationMs / (1000 * 60 * 60));
+  let mins = parseInt((durationMs / (1000 * 60)) % 60);
+
+  hours = hours < 10 ? '0' + hours : hours;
+  mins = mins < 10 ? '0' + mins : mins;
+
+  return { error: false, totalTime: `${hours}:${mins}` };
+}
+
 export const reportInputs = [
   {
     name: 'customer',
@@ -71,6 +91,7 @@ export const reportInputs = [
     name: 'durationOfLunch',
     required: false,
     type: 'number',
+    InputProps: { inputProps: { min: 0 } },
     label: 'Время обеда, мин.',
   },
 ];
