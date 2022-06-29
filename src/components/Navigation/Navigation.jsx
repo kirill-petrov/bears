@@ -6,10 +6,12 @@ import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import PeopleAltRoundedIcon from '@mui/icons-material/PeopleAltRounded';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import { Link, useLocation } from 'react-router-dom';
-import { toggleAuth } from '../../redux/reducers/userReducer';
+import { logout } from '../../redux/reducers/userReducer';
 import { useDispatch } from 'react-redux';
 import './navigation.scss';
 import { IconButton } from '@mui/material';
+import { signOut } from 'firebase/auth';
+import { auth } from '../../firebase';
 
 export default function Navigation({ userId }) {
   const dispatch = useDispatch();
@@ -41,7 +43,19 @@ export default function Navigation({ userId }) {
                     </li>
                     <li>
                       <LogoutRoundedIcon className="icon" />
-                      <Link to="/" onClick={() => dispatch(toggleAuth())}>
+                      <Link
+                        to="/"
+                        onClick={() => {
+                          signOut(auth)
+                            .then(() => {
+                              dispatch(logout());
+                              console.log('Sign-out successful');
+                            })
+                            .catch((error) => {
+                              console.log(error.message);
+                            });
+                        }}
+                      >
                         Выход
                       </Link>
                     </li>

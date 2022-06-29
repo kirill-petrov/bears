@@ -1,6 +1,6 @@
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import React from 'react';
-import db from '../../db';
+import { db } from '../../firebase.js';
 
 export default function Create() {
   const createUser = (e) => {
