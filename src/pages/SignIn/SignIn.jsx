@@ -1,11 +1,15 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { authGoogleProvider } from '../../redux/reducers/userReducer.js';
-import { Navigation } from '../../components';
 import { auth } from '../../firebase.js';
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import './signin.scss';
+import {
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  signInWithPopup,
+} from 'firebase/auth';
+import { Navigation } from '../../components';
 import GoogleIcon from '@mui/icons-material/Google';
+import './signin.scss';
 
 export default function SignIn() {
   // const { isAuth } = useSelector((state) => state.user);
@@ -13,13 +17,17 @@ export default function SignIn() {
 
   const signInWithGoogle = () => {
     const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider)
+    signInWithPopup(auth, provider) // для mobile лучше редирект
       .then((result) => {
         // This gives you a Google Access Token. You can use it to access the Google API.
         // const credential = GoogleAuthProvider.credentialFromResult(result);
         // const token = credential.accessToken;
-        // console.log(token);
-        dispatch(authGoogleProvider(result.user.uid));
+        console.log('signInWithGoogle successful');
+        // if (result.user) dispatch(authGoogleProvider(result.user.uid));
+
+        onAuthStateChanged(auth, (user) => {
+          if (user) dispatch(authGoogleProvider(user.uid));
+        });
       })
       .catch((error) => {
         // Handle Errors here.
@@ -30,7 +38,7 @@ export default function SignIn() {
         // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error);
         // ...
-        alert(errorCode, errorMessage, email, credential);
+        console.log(errorCode, errorMessage, email, credential);
       });
   };
   //todo: найти нормальную кнопку
@@ -39,13 +47,15 @@ export default function SignIn() {
       <Navigation />
 
       <div className="container">
-        <h2>Авторизация</h2>
+        <h2>Войдите в приложение</h2>
 
         <button type="button" onClick={signInWithGoogle}>
           <GoogleIcon />
-          <div>Continue with Google</div>
+          <p>Продолжить с Google</p>
         </button>
       </div>
     </div>
   );
 }
+
+/* Номера телефонов, предоставленные конечными пользователями для аутентификации, будут отправлены и сохранены Google, чтобы улучшить нашу защиту от спама и злоупотреблений в службах Google, включая, помимо прочего, Firebase. Разработчики должны убедиться, что у них есть соответствующее согласие конечного пользователя, прежде чем использовать службу входа в систему с помощью номера телефона Firebase Authentication. */

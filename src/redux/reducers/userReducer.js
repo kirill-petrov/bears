@@ -20,6 +20,7 @@ export const userSlice = createSlice({
     },
     logout: (state) => {
       state.isAuth = false;
+      state.isAdmin = false;
       state.uid = null;
     },
   },

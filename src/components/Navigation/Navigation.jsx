@@ -17,6 +17,17 @@ export default function Navigation({ userId }) {
   const dispatch = useDispatch();
   let location = useLocation();
 
+  const handleLogout = () => {
+    signOut(auth)
+      .then(() => {
+        dispatch(logout());
+      })
+      .catch((error) => {
+        //todo: вывести предупреждение (alert-mui)
+        console.log(error.message);
+      });
+  };
+
   return (
     <div className="navbar">
       <nav>
@@ -43,19 +54,7 @@ export default function Navigation({ userId }) {
                     </li>
                     <li>
                       <LogoutRoundedIcon className="icon" />
-                      <Link
-                        to="/"
-                        onClick={() => {
-                          signOut(auth)
-                            .then(() => {
-                              dispatch(logout());
-                              console.log('Sign-out successful');
-                            })
-                            .catch((error) => {
-                              console.log(error.message);
-                            });
-                        }}
-                      >
+                      <Link to="/" onClick={handleLogout}>
                         Выход
                       </Link>
                     </li>
