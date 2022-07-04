@@ -1,21 +1,32 @@
-import * as React from 'react';
+import React from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
+// import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import { NavLink } from 'react-router-dom';
+import { auth } from '../../firebase.js';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 export default function SignUpForm() {
-  //todo: подсвечивать обязательные инпуты
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+  // todo: !! Authenticate with Firebase Using Email Link in JavaScript
+  // todo: подсвечивать обязательные инпуты
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const signUpForm = new FormData(e.target);
+    const email = signUpForm.get('email');
+    const password = signUpForm.get('password');
+    console.log(email, password);
+
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((cred) => {
+        console.log('User created', cred.user);
+        const form = document.querySelector('[component="signUpForm"]');
+        form.reset();
+      })
+      .catch((err) => {
+        console.log('Error message', err.message);
+      });
   };
 
   return (
@@ -33,9 +44,14 @@ export default function SignUpForm() {
           Sign up
         </Typography> 
         */}
-        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+        <form
+          component="signUpForm"
+          noValidate
+          onSubmit={handleSubmit}
+          sx={{ mt: 3 }}
+        >
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
+            {/* <Grid item xs={12} sm={6}>
               <TextField
                 autoComplete="given-name"
                 name="firstName"
@@ -45,8 +61,8 @@ export default function SignUpForm() {
                 label="ФИО"
                 autoFocus
               />
-            </Grid>
-            <Grid item xs={12} sm={6}>
+            </Grid> */}
+            {/* <Grid item xs={12} sm={6}>
               <TextField
                 required
                 fullWidth
@@ -54,26 +70,26 @@ export default function SignUpForm() {
                 label="Телефонный номер"
                 name="phone"
               />
-            </Grid>
+            </Grid> */}
             <Grid item xs={12}>
               <TextField
+                name="email"
+                type="email"
+                label="Электронная почта"
                 required
                 fullWidth
-                id="email"
-                label="Электронная почта"
-                name="email"
-                autoComplete="email"
               />
             </Grid>
+            {/* 
+              //todo: Password should be at least 6 characters (auth/weak-password).
+            */}
             <Grid item xs={12}>
               <TextField
+                name="password"
+                type="password"
+                label="Пароль"
                 required
                 fullWidth
-                name="password"
-                label="Пароль"
-                type="password"
-                id="password"
-                autoComplete="new-password"
               />
             </Grid>
           </Grid>
@@ -81,12 +97,12 @@ export default function SignUpForm() {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2 }}
+            sx={{ mt: 3, mb: 15 }}
           >
             Зарегистрироваться
           </Button>
 
-          <Grid container justifyContent="center" sx={{ mt: 5, mb: 2 }}>
+          {/* <Grid container justifyContent="center" sx={{ mt: 5, mb: 2 }}>
             <Grid item>
               <NavLink to="/" variant="body2">
                 <Link href="#" variant="body2">
@@ -94,8 +110,8 @@ export default function SignUpForm() {
                 </Link>
               </NavLink>
             </Grid>
-          </Grid>
-        </Box>
+          </Grid> */}
+        </form>
       </Box>
     </Container>
   );
