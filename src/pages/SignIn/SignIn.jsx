@@ -9,6 +9,7 @@ import {
 } from 'firebase/auth';
 import { Navigation } from '../../components';
 import GoogleIcon from '@mui/icons-material/Google';
+import LocalPhoneRoundedIcon from '@mui/icons-material/LocalPhoneRounded';
 import './signin.scss';
 
 export default function SignIn() {
@@ -47,11 +48,16 @@ export default function SignIn() {
       <Navigation />
 
       <div className="container">
-        <h2>Войдите в приложение</h2>
+        <h2>Вход</h2>
 
+        <div className="hr" />
         <button type="button" onClick={signInWithGoogle}>
           <GoogleIcon />
           <p>Продолжить с Google</p>
+        </button>
+        <button type="button" onClick={signInWithGoogle}>
+          <LocalPhoneRoundedIcon />
+          <p>Войти по номеру</p>
         </button>
       </div>
     </div>

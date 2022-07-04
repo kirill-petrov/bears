@@ -9,8 +9,17 @@
 
   button {
     padding: 0 20px;
+    margin-bottom: 10px;
+    width: 220px;
     display: flex;
     align-items: center;
     gap: 10px;
+  }
+
+  .hr {
+    margin: 20px 0;
+    height: 1px;
+    width: 300px;
+    background-color: gray;
   }
 }
