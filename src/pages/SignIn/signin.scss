@@ -8,9 +8,17 @@
   }
 
   button {
-    padding: 10px;
+    padding: 0 20px;
+    width: 220px;
     display: flex;
     align-items: center;
+    gap: 10px;
+  }
+
+  .signin-group {
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
     gap: 10px;
   }
 }

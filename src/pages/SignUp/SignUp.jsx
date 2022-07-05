@@ -1,12 +1,11 @@
 import React from 'react';
-import { Navigation } from '../../components';
+import { Navigation, SignUpForm } from '../../components';
 
 export default function SignUp() {
   return (
-    <div>
+    <div className="signup">
       <Navigation />
-
-      <h2>Форма реги</h2>
+      <SignUpForm />
     </div>
   );
 }

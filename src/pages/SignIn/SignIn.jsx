@@ -1,51 +1,67 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { authGoogleProvider } from '../../redux/reducers/userReducer.js';
-import { Navigation } from '../../components';
 import { auth } from '../../firebase.js';
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import './signin.scss';
+import {
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  signInWithPopup,
+} from 'firebase/auth';
 import GoogleIcon from '@mui/icons-material/Google';
+import LocalPhoneRoundedIcon from '@mui/icons-material/LocalPhoneRounded';
+import './signin.scss';
+import { AuthPhone } from '../../components/index.js';
 
 export default function SignIn() {
   // const { isAuth } = useSelector((state) => state.user);
+  const [isOpen, setOpen] = useState(false);
+
   const dispatch = useDispatch();
 
+  // todo: перенести в firebase.js
   const signInWithGoogle = () => {
     const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider)
+    signInWithPopup(auth, provider) // для mobile лучше редирект
       .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        // const credential = GoogleAuthProvider.credentialFromResult(result);
-        // const token = credential.accessToken;
-        // console.log(token);
-        dispatch(authGoogleProvider(result.user.uid));
+        onAuthStateChanged(auth, (user) => {
+          if (user) dispatch(authGoogleProvider(user.uid));
+        });
+        console.log('signInWithGoogle successful');
       })
       .catch((error) => {
-        // Handle Errors here.
         const errorCode = error.code;
         const errorMessage = error.message;
-        // The email of the user's account used.
         const email = error.customData.email;
-        // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
-        alert(errorCode, errorMessage, email, credential);
+        console.log(errorCode, errorMessage, email, credential);
       });
   };
+
   //todo: найти нормальную кнопку
   return (
     <div className="signin">
-      <Navigation />
-
+      {/* 
+        // todo: если рега не нужна, то и ссылка на регу лишняя
+        <Navigation /> 
+      */}
       <div className="container">
-        <h2>Авторизация</h2>
+        <h2>Вход</h2>
 
-        <button type="button" onClick={signInWithGoogle}>
-          <GoogleIcon />
-          <div>Continue with Google</div>
-        </button>
+        <div className="signin-group">
+          <button type="button" onClick={signInWithGoogle}>
+            <GoogleIcon />
+            <p>Продолжить с Google</p>
+          </button>
+
+          <button type="button" onClick={() => setOpen(true)}>
+            <LocalPhoneRoundedIcon />
+            <p>Войти по номеру</p>
+          </button>
+          <AuthPhone isOpen={isOpen} setOpen={setOpen} />
+        </div>
       </div>
     </div>
   );
 }
+
+/* Номера телефонов, предоставленные конечными пользователями для аутентификации, будут отправлены и сохранены Google, чтобы улучшить нашу защиту от спама и злоупотреблений в службах Google, включая, помимо прочего, Firebase. Разработчики должны убедиться, что у них есть соответствующее согласие конечного пользователя, прежде чем использовать службу входа в систему с помощью номера телефона Firebase Authentication. */

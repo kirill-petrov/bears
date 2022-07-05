@@ -18,13 +18,19 @@ export const userSlice = createSlice({
       state.isAuth = true;
       state.uid = action.payload;
     },
+    authPhoneNumber: (state, action) => {
+      state.isAuth = true;
+      state.uid = action.payload;
+    },
     logout: (state) => {
       state.isAuth = false;
+      state.isAdmin = false;
       state.uid = null;
     },
   },
 });
 
-export const { toggleAuth, authGoogleProvider, logout } = userSlice.actions;
+export const { toggleAuth, authGoogleProvider, authPhoneNumber, logout } =
+  userSlice.actions;
 
 export default userSlice.reducer;
