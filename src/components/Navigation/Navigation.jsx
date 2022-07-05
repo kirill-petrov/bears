@@ -21,6 +21,7 @@ export default function Navigation({ userId }) {
     signOut(auth)
       .then(() => {
         dispatch(logout());
+        console.log('Sign-out successful');
       })
       .catch((error) => {
         //todo: вывести предупреждение (alert-mui)
