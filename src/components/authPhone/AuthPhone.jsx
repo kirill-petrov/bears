@@ -14,7 +14,6 @@ import {
   signInWithPhoneNumber,
 } from 'firebase/auth';
 import { auth } from '../../firebase.js';
-import './formDialog.scss';
 import { useDispatch } from 'react-redux';
 import { authPhoneNumber } from '../../redux/reducers/userReducer';
 

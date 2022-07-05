@@ -10,7 +10,7 @@ import {
 import GoogleIcon from '@mui/icons-material/Google';
 import LocalPhoneRoundedIcon from '@mui/icons-material/LocalPhoneRounded';
 import './signin.scss';
-import { FormDialog } from '../../components/index.js';
+import { AuthPhone } from '../../components/index.js';
 
 export default function SignIn() {
   // const { isAuth } = useSelector((state) => state.user);
@@ -57,7 +57,7 @@ export default function SignIn() {
             <LocalPhoneRoundedIcon />
             <p>Войти по номеру</p>
           </button>
-          <FormDialog isOpen={isOpen} setOpen={setOpen} />
+          <AuthPhone isOpen={isOpen} setOpen={setOpen} />
         </div>
       </div>
     </div>

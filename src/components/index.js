@@ -8,4 +8,4 @@ export { default as ListOfReports } from './ListOfReports/ListOfReports.jsx';
 export { default as DataTable } from './dataTable/DataTable.jsx';
 export { default as Form } from './form/Form.jsx';
 export { default as SignUpForm } from './signUpForm/SignUpForm.jsx';
-export { default as FormDialog } from './formDialog/FormDialog.jsx';
+export { default as AuthPhone } from './authPhone/AuthPhone.jsx';
