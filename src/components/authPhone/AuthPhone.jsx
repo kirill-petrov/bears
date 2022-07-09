@@ -8,12 +8,13 @@ import {
   TextField,
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
+import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import {
-  onAuthStateChanged,
-  RecaptchaVerifier,
-  signInWithPhoneNumber,
-} from 'firebase/auth';
-import { auth } from '../../firebase.js';
+  auth,
+  checkExistingUser,
+  createUser,
+  getUserRole,
+} from '../../firebase.js';
 import { useDispatch } from 'react-redux';
 import { authPhoneNumber } from '../../redux/reducers/userReducer';
 
@@ -23,45 +24,40 @@ const generateRecaptchaVerifier = () => {
     {
       size: 'invisible',
       callback: (response) => {
-        // reCAPTCHA solved, allow signInWithPhoneNumber.
-        // onSignInSubmit();
-        // console.log('callback: (response) => {...');
-        console.log('reCAPTCHA solved, allow signInWithPhoneNumber', response);
+        console.log('reCAPTCHA solved, allow signInWithPhoneNumber');
       },
     },
     auth
   );
 };
 
-const isValidNumber = new RegExp(/^\+7\d{10}$/);
+// const validateNumber = new RegExp(/^\+7\d{10}$/);
+const validateNumber = new RegExp(/^\+1\d{10}$/);
 
 export default function FormDialog({ isOpen, setOpen }) {
-  const [phone, setPhone] = useState('+79111781198');
+  const [phone, setPhone] = useState('+16505553434');
   const [phoneError, setPhoneError] = useState(false);
   const [codeError, setCodeError] = useState(false);
   const [expand, setExpand] = useState(false);
-  const [OTP, setOTP] = useState('');
+  const [verificationCode, setVerificationCode] = useState('');
   const dispatch = useDispatch();
 
   const handleClose = () => setOpen(false);
 
   useEffect(() => {
-    isValidNumber.test(phone) && setPhoneError(false);
+    validateNumber.test(phone) && setPhoneError(false);
   }, [phone]);
 
-  const requestOTP = () => {
-    console.log('requestOTP >> isValidNumber', isValidNumber.test(phone));
-    if (isValidNumber.test(phone)) {
+  const requestVerificationCode = () => {
+    if (validateNumber.test(phone)) {
       setExpand(true);
       generateRecaptchaVerifier();
-      const appVerifier = window.recaptchaVerifier;
-      console.log('appVerifier>', appVerifier);
-      signInWithPhoneNumber(auth, phone, appVerifier)
+      signInWithPhoneNumber(auth, phone, window.recaptchaVerifier)
         .then((confirmationResult) => {
           window.confirmationResult = confirmationResult;
         })
         .catch((error) => {
-          console.log(error.message);
+          console.log('Catches error:signInWithPhoneNumber ' + error.message);
         });
     } else {
       setPhoneError(true);
@@ -69,26 +65,35 @@ export default function FormDialog({ isOpen, setOpen }) {
   };
 
   useEffect(() => {
-    if (OTP.length === 6) {
-      console.log('verifyOTP');
+    if (verificationCode.length === 6) {
       const confirmationResult = window.confirmationResult;
+
+      let userData;
+
       confirmationResult
-        .confirm(OTP)
-        .then((result) => {
-          console.log('User signed in successfully', result.user);
-          // todo: isAuth - true relink to reports
-          onAuthStateChanged(auth, (user) => {
-            if (user) dispatch(authPhoneNumber(user.uid));
-            console.log(user);
-          });
-          console.log('authPhoneNumber successful');
+        .confirm(verificationCode)
+        .then((authCredential) => {
+          console.log('User signed in successfully');
+          const { uid, phoneNumber } = authCredential.user;
+          userData = { uid, phoneNumber };
+          return userData.phoneNumber;
+        })
+        .then(checkExistingUser)
+        .then((alreadyExist) => {
+          console.log('alreadyExist', alreadyExist);
+          if (!alreadyExist) createUser(userData);
+          dispatch(authPhoneNumber({ ...userData }));
+        })
+        .then(() => getUserRole(userData.uid))
+        .then((role) => {
+          dispatch(authPhoneNumber({ ...userData, role }));
         })
         .catch((error) => {
           // todo: обработку с алертом
-          setCodeError(error.message);
+          setCodeError('Неверный код подтверждения');
         });
     }
-  }, [OTP, dispatch]);
+  }, [verificationCode, dispatch]);
 
   return (
     <div className="FormDialog">
@@ -118,7 +123,7 @@ export default function FormDialog({ isOpen, setOpen }) {
             </DialogContent>
             <DialogActions>
               <Button onClick={handleClose}>Закрыть</Button>
-              <Button onClick={requestOTP}>Получить код</Button>
+              <Button onClick={requestVerificationCode}>Получить код</Button>
             </DialogActions>
           </>
         ) : (
@@ -129,11 +134,11 @@ export default function FormDialog({ isOpen, setOpen }) {
               </DialogContentText>
               <TextField
                 margin="dense"
-                id="checkOTP"
+                id="checkverificationCode"
                 type="text"
                 label="Введите код из SMS"
                 fullWidth
-                onChange={(e) => setOTP(e.target.value)}
+                onChange={(e) => setVerificationCode(e.target.value)}
                 error={codeError}
                 helperText={codeError ? codeError : null}
                 sx={{ mb: '20px' }}

@@ -25,7 +25,7 @@ export default function Navigation({ userId }) {
       })
       .catch((error) => {
         //todo: вывести предупреждение (alert-mui)
-        console.log(error.message);
+        console.log('Catches error:handleLogout ' + error.message);
       });
   };
 
@@ -64,6 +64,7 @@ export default function Navigation({ userId }) {
               case '/createReport':
                 return (
                   <li>
+                    {/* // todo обернуть иконки в ЛинкТу */}
                     <CloseRoundedIcon className="icon" />
                     <Link to="/reports">Вернуться на главную </Link>
                   </li>
