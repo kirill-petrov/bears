@@ -1,9 +1,13 @@
 import { initializeApp } from 'firebase/app';
 import {
   collection,
+  doc,
+  getDoc,
   getDocs,
   getFirestore,
   query,
+  serverTimestamp,
+  setDoc,
   where,
 } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
@@ -35,8 +39,26 @@ export const checkExistingUser = async (tel) => {
     const snapshot = await getDocs(q);
     snapshot.forEach((user) => (user.data() ? (alreadyExist = true) : null));
   } catch (error) {
-    console.log('Catches error: ' + error.message);
+    console.log('Catches error:checkExistingUser ' + error.message);
   }
 
   return alreadyExist;
+};
+
+export const createUser = async (user) => {
+  try {
+    await setDoc(doc(db, 'users', user.uid), {
+      phoneNumber: user.phoneNumber,
+      timeStamp: serverTimestamp(),
+      role: null,
+    });
+    console.log('Document written with ID: ', user.uid);
+  } catch (error) {
+    console.log('Catches error:createUser ' + error.message);
+  }
+};
+
+export const getUserRole = async (uid) => {
+  const docSnap = await getDoc(doc(db, 'users', uid));
+  return docSnap.data().role;
 };
